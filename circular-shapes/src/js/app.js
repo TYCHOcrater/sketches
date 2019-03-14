@@ -31,21 +31,23 @@ class App {
                 }))
         } else {
             this.shapes = [].map.call(
-                document.getElementsByClassName(`shapeshift`), element => new Shapeshift(element, {
-                    rings: 20,
-                    anchors: 18,
-                    length: 1,
-                    minRingScale: 0
-                }
+              document.getElementsByClassName(`shapeshift`), element => new Shapeshift(element, {
+                rings: 20,
+                anchors: 18,
+                length: 1,
+                minRingScale: 0
+              }
             ))
-        }
+          }
+      
+        // render & animation ticker
+        TweenMax.ticker.fps(60)
+        TweenMax.ticker.addEventListener(`tick`, () => { this.tick() })
+      
+        // resize
+        window.addEventListener(`resize`, () => { this.resize() }, false)
     }
 
-    TweenMax.ticker.fps(60)
-    TweenMax.ticker.addEventListener(`tick`, () => { this.tick() })
-    
-    window.addEventListener(`resize`, () => { this.resize() }, false)
-    
     tick() {
         this.update()
         this.draw()
